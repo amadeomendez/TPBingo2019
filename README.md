@@ -25,8 +25,3 @@
 - Verificar que pasen para la clase CartonEjemplo, pero fallen para la clase CartonJs.
 - Luego de verificar que los tests fallen (con un commit), arreglar la clase CartonJs para que no falle más.
 - Reemplazar la implementación de `lineas()` y `columnas()` para no repetir el código del constructor.
-
-## Respuestas del Informe
-
-- `.gitignore` hace que todos los archivos, directorios, o extensiones de archivos especificados sean ignorados en directorio del repositorio que Git va a trackear. En el caso actual, `.gitignore` ignora el archivo vendor.
-- El archivo `.travis.yml` añade información al repositorio para que TravisCI sepa cómo actuar a la hora de hacer los tests. Travis no sabe qué lenguaje estamos utilizando, así que el archivo indica que usamos PHP (versión 7.2)
