@@ -61,7 +61,13 @@ class VerificacionesAvanzadasCartonTest extends TestCase {
    * ocupada.
    */
   public function testTresCeldasIndividuales() {
-    $this->assertTrue(TRUE);
+	$carton = new CartonEjemplo;
+	$columnasConUnaCeldaOcupada = 0;
+		foreach( $carton->columnas() as $columna ) {
+			if( count(array_filter($columna, function($x){return $x != 0;}))
+			== 1) $columnasConUnaCeldaOcupada += 1;
+		}
+		$this->assertEquals( 3, $columnasConUnaCeldaOcupada );
   }
 
   /**
@@ -69,14 +75,39 @@ class VerificacionesAvanzadasCartonTest extends TestCase {
    * las columnas a la derecha.
    */
   public function testNumerosIncrementales() {
-    $this->assertTrue(TRUE);
+	$ordenado = function( $array ) {
+		$len = count($array);
+		for( $i = 0; $i < $len-1; $i++ ) {
+			if( $array[$i] >= $array[$i+1] ) return false;
+		} return true;
+	};
+	$carton = new CartonEjemplo;
+	foreach ( $carton->filas() as $fila ) {
+		$celdasOcupadas = array_values(array_filter(
+			$fila, function($x){return $x != 0;}
+		));
+		$this->assertTrue( $ordenado($celdasOcupadas) );
+	}
   }
-
+	
   /**
    * Verifica que en una fila no existan más de dos celdas vacias consecutivas.
    */
   public function testFilasConVaciosUniformes() {
-    $this->assertTrue(TRUE);
+	$numMaxDeCeldasVaciasConsecutivas = function( $array ) {
+		$len = count( $array );
+		$cant = 0; $res = 0;
+		foreach( $array as $num ) {
+			if( $num != 0 ) $cant = 0;
+			else{           $cant++  ; $res = max($res, $cant); }
+		} return $res;
+	};
+	$carton = new CartonEjemplo;
+	foreach ( $carton->filas() as $fila ) {
+		$this->assertLessThanOrEqual(
+			2, $numMaxDeCeldasVaciasConsecutivas( $fila )
+		);
+	}
   }
 
 }
