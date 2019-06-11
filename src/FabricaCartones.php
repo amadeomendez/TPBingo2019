@@ -77,27 +77,67 @@ class FabricaCartones {
   }
 
   protected function validarCincoNumerosPorFila($carton) {
-
+    foreach ( $carton->filas() as $fila ) {
+			$this->assertEquals(
+				5, count(array_filter( $fila, function($x){return $x != 0;} ))
+			);
+		}
   }
 
   protected function validarColumnaNoVacia($carton) {
-
+    foreach( $carton->columnas() as $columna ) {
+			$this->assertGreaterThan(
+				0, count(array_filter($columna, function($x){return $x != 0;}))
+			);
+		}
   }
 
   protected function validarColumnaCompleta($carton) {
-
+    foreach( $carton->columnas() as $columna ) {
+			$this->assertNotEquals(
+				3, count(array_filter($columna, function($x){return $x != 0;}))
+			);
+		}
   }
 
   protected function validarTresCeldasIndividuales($carton) {
-
+    $columnasConUnaCeldaOcupada = 0;
+		foreach( $carton->columnas() as $columna ) {
+			if( count(array_filter($columna, function($x){return $x != 0;}))
+			== 1) $columnasConUnaCeldaOcupada += 1;
+		}
+		$this->assertEquals( 3, $columnasConUnaCeldaOcupada );
   }
 
   protected function validarNumerosIncrementales($carton) {
-
+    $ordenado = function( $array ) {
+      $len = count($array);
+      for( $i = 0; $i < $len-1; $i++ ) {
+        if( $array[$i] >= $array[$i+1] ) return false;
+      } return true;
+    };
+    foreach ( $carton->filas() as $fila ) {
+      $celdasOcupadas = array_values(array_filter(
+        $fila, function($x){return $x != 0;}
+      ));
+      $this->assertTrue( $ordenado($celdasOcupadas) );
+    }
   }
 
   protected function validarFilasConVaciosUniformes($carton) {
-
+    $numMaxDeCeldasVaciasConsecutivas = function( $array ) {
+      $len = count( $array );
+      $cant = 0; $res = 0;
+      foreach( $array as $num ) {
+        if( $num != 0 ) $cant = 0;
+        else{           $cant++  ; $res = max($res, $cant); }
+      } return $res;
+    };
+    foreach ( $carton->filas() as $fila ) {
+      $this->assertLessThanOrEqual(
+        2, $numMaxDeCeldasVaciasConsecutivas( $fila )
+      );
+    }
   }
 
 
