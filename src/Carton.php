@@ -4,7 +4,7 @@ namespace Bingo;
 
 class Carton {
   
-  protected $numeros_carton;
+  protected $numeros_carton = [];
 
   public function __construct( $numeros ) {
     foreach ( $numeros as $fila ) {
