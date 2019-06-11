@@ -2,6 +2,18 @@
 
 namespace Bingo;
 
+class Carton {
+  
+  protected $numeros_carton;
+
+  public function __construct( $numeros ) {
+    foreach ( $numeros as $fila ) {
+      array_push($this->numeros_carton, $fila);
+    }
+  }
+
+}
+
 class FabricaCartones {
 
   public function generarCarton() {
