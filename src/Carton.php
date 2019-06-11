@@ -2,14 +2,12 @@
 
 namespace Bingo;
 
-class Carton {
+class Carton extends CartonInterface {
   
   protected $numeros_carton = [];
 
   public function __construct( $numeros ) {
-    foreach ( $numeros as $fila ) {
-      array_push($this->numeros_carton, $fila);
-    }
+    $this->numeros_carton = $numeros;
   }
 
   public function filas() {
