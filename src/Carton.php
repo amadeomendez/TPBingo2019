@@ -2,6 +2,8 @@
 
 namespace Bingo;
 
+require 'CartonInterface.php';
+
 class Carton extends CartonInterface {
   
   protected $numeros_carton = [];
