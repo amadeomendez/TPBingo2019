@@ -11,6 +11,7 @@ class VerificacionesAvanzadasCartonTest extends TestCase {
    * @dataProvider cartones
    */
   public function testUnoANoventa( CartonInterface $carton ) {
+	  var_dump($carton);
 	foreach ( $carton->filas() as $fila ) {
 		foreach ( $fila as $num ) {
 			if( $num != 0 ) {
