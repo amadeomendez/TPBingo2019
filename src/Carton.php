@@ -2,13 +2,11 @@
 
 namespace Bingo;
 
-require 'CartonInterface.php';
-
-class Carton extends CartonInterface {
+class Carton implements CartonInterface {
   
   protected $numeros_carton = [];
 
-  public function __construct( $numeros ) {
+  public function __construct(array $numeros) {
     $this->numeros_carton = $numeros;
   }
 
