@@ -1,7 +1,7 @@
 <?php
 
 //require 'vendor/autoload.php';
-require 'FabricaCartones.php';
+require 'src/FabricaCartones.php';
 
 use Bingo\FabricaCartones;
 
