@@ -14,20 +14,20 @@ class FabricaCartones {
   }
 
   protected function cartonEsValido($carton) {
-    if (validarUnoANoventa($carton) &&
-      $this->validarCincoNumerosPorFila($carton) &&
-      $this->validarColumnaNoVacia($carton) &&
-      $this->validarColumnaCompleta($carton) &&
-      $this->validarTresCeldasIndividuales($carton) &&
-      $this->validarNumerosIncrementales($carton) &&
-      $this->validarFilasConVaciosUniformes($carton)
+    if (testUnoANoventa($carton) &&
+      $this->testCincoNumerosPorFila($carton) &&
+      $this->testColumnaNoVacia($carton) &&
+      $this->testColumnaCompleta($carton) &&
+      $this->testTresCeldasIndividuales($carton) &&
+      $this->testNumerosIncrementales($carton) &&
+      $this->testFilasConVaciosUniformes($carton)
     ) {
       return TRUE;
     }
     return FALSE;
   }
 
-  protected function validarUnoANoventa($carton) {
+  protected function testUnoANoventa($carton) {
     foreach ( $carton->filas() as $fila ) {
       foreach ( $fila as $num ) {
         if( $num != 0 ) {
@@ -37,7 +37,7 @@ class FabricaCartones {
     }
   }
 
-  protected function validarCincoNumerosPorFila($carton) {
+  protected function testCincoNumerosPorFila($carton) {
     foreach ( $carton->filas() as $fila ) {
 			$this->assertEquals(
 				5, count(array_filter( $fila, function($x){return $x != 0;} ))
@@ -45,7 +45,7 @@ class FabricaCartones {
 		}
   }
 
-  protected function validarColumnaNoVacia($carton) {
+  protected function testColumnaNoVacia($carton) {
     foreach( $carton->columnas() as $columna ) {
 			$this->assertGreaterThan(
 				0, count(array_filter($columna, function($x){return $x != 0;}))
@@ -53,7 +53,7 @@ class FabricaCartones {
 		}
   }
 
-  protected function validarColumnaCompleta($carton) {
+  protected function testColumnaCompleta($carton) {
     foreach( $carton->columnas() as $columna ) {
 			$this->assertNotEquals(
 				3, count(array_filter($columna, function($x){return $x != 0;}))
@@ -61,7 +61,7 @@ class FabricaCartones {
 		}
   }
 
-  protected function validarTresCeldasIndividuales($carton) {
+  protected function testTresCeldasIndividuales($carton) {
     $columnasConUnaCeldaOcupada = 0;
 		foreach( $carton->columnas() as $columna ) {
 			if( count(array_filter($columna, function($x){return $x != 0;}))
@@ -70,7 +70,7 @@ class FabricaCartones {
 		$this->assertEquals( 3, $columnasConUnaCeldaOcupada );
   }
 
-  protected function validarNumerosIncrementales($carton) {
+  protected function testNumerosIncrementales($carton) {
     $ordenado = function( $array ) {
       $len = count($array);
       for( $i = 0; $i < $len-1; $i++ ) {
@@ -85,7 +85,7 @@ class FabricaCartones {
     }
   }
 
-  protected function validarFilasConVaciosUniformes($carton) {
+  protected function testFilasConVaciosUniformes($carton) {
     $numMaxDeCeldasVaciasConsecutivas = function( $array ) {
       $len = count( $array );
       $cant = 0; $res = 0;
