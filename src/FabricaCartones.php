@@ -28,13 +28,14 @@ class FabricaCartones {
   }
 
   protected function validarUnoANoventa($carton) {
-    foreach ( $carton->filas() as $fila ) {
-      foreach ( $fila as $num ) {
-        if( $num != 0 ) {
-          $this->assertTrue( $num >= 1 && $num <= 90 );
+    foreach ( $carton as $fila ) {
+      foreach ( array_filter($fila) as $num ) {
+        if( $num >= 1 && $num <= 90 ){
         }
+	else { return false; }
       }
     }
+	  return true;
   }
 
   protected function validarCincoNumerosPorFila($carton) {
