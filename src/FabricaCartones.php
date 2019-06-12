@@ -73,16 +73,17 @@ class FabricaCartones {
   }
 	
   protected function validarTresCeldasIndividuales($carton) {
-    $cantidadConUnaSolaOcupada = 0;
+    $validas= 0;
     foreach ($carton as $columna) {
     	if( count( array_filter($columna)) == 1) {
-	$columnasConUnaCeldaOcupada++;
+	$validas++;
 	}
-    return ($cantidadConUnaSolaOcupada == 3);
+    }
+    return ($validas == 3);
   }
 	
   protected function validarNumerosIncrementales($carton) {
-   /** $columnas = $carton;
+  $columnas = $carton;
     
     $mayores = [];
     $menores = [];
@@ -96,7 +97,7 @@ class FabricaCartones {
         return false;
     }
     return true;
-  **/	
+   /** 
     $ordenado = function( $array ) {
 	$len = count($array);
 	for( $i = 0; $i < $len-1; $i++ ) {
@@ -114,6 +115,7 @@ class FabricaCartones {
 	    }
      }
      return true;
+     **/	
   }
 	  
 	  
