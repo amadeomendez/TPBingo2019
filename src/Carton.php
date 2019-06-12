@@ -6,13 +6,8 @@ class Carton implements CartonInterface {
   
   protected $numeros_carton = [];
 
-  public function __construct(array $columnas) {
-    foreach ($columnas as $i_columna => $fila){
-      foreach($fila as $i_fila => $numero) {
-        $carton_rearmado[$i_fila][$i_columna] = $numero;
-      }
-    }
-    $this->numeros_carton = $carton_rearmado;
+  public function __construct(array $carton_nuevo) {
+    $this->numeros_carton = $carton_aleatorio;
   }
   
   /**
@@ -26,7 +21,13 @@ class Carton implements CartonInterface {
    * {@inheritdoc}
    */ 
     public function columnas() {
-      return array_map(null, ...$this->numeros_carton);
+      $columnas_carton = [[]];
+      foreach($this->numeros_carton as $fila){
+        foreach($fila as $pos_celda => $celda){
+          $columnas_carton[$pos_celda][] = $celda;
+        }
+      }
+    return $columnas_carton;
     }
   
   /**
