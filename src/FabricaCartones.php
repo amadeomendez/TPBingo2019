@@ -14,11 +14,11 @@ class FabricaCartones {
   }
 
   public function afilar($columnas) {
-  foreach ($columnas as $indice_columna => $fila) {
-        foreach ($fila as $indice_fila => $numero){
-          $filas[$indice_fila][$indice_columna] = $numero;
-        }
-  }
+	foreach ($columnas as $indice_columna => $fila) {
+		foreach ($fila as $indice_fila => $numero){
+			$filas[$indice_fila][$indice_columna] = $numero;
+		}
+	 }
 	return $filas;	  
   }
 	
@@ -48,7 +48,7 @@ class FabricaCartones {
   }
 
  protected function validarCincoNumerosPorFila($carton) {
-    $filas = $this->afilar(carton);
+    $filas = $this->afilar($carton);
     foreach ($filas as $fila) {
       if(count(array_filter($fila)) != 5)
         return false;
