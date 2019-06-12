@@ -8,7 +8,7 @@ class VerificacionesAvanzadasCartonTest extends TestCase {
 
   /**
    * Verifica que los números del carton se encuentren en el rango 1 a 90.
-   * @dataProvider cartones
+   * @dataProvider cartonProvider
    */
   public function testUnoANoventa( CartonInterface $carton ) {
 	  var_dump($carton);
@@ -23,7 +23,7 @@ class VerificacionesAvanzadasCartonTest extends TestCase {
 
   /**
    * Verifica que cada fila de un carton tenga exactamente 5 celdas ocupadas.
-   * @dataProvider cartones
+   * @dataProvider cartonProvider
    */
   public function testCincoNumerosPorFila( CartonInterface $carton ) {
 		foreach ( $carton->filas() as $fila ) {
@@ -35,7 +35,7 @@ class VerificacionesAvanzadasCartonTest extends TestCase {
 
   /**
    * Verifica que para cada columna, haya al menos una celda ocupada.
-   * @dataProvider cartones
+   * @dataProvider cartonProvider
    */
   public function testColumnaNoVacia( CartonInterface $carton ) {
 		foreach( $carton->columnas() as $columna ) {
@@ -47,7 +47,7 @@ class VerificacionesAvanzadasCartonTest extends TestCase {
 
   /**
    * Verifica que no haya columnas de un carton con tres celdas ocupadas.
-   * @dataProvider cartones
+   * @dataProvider cartonProvider
    */
   public function testColumnaCompleta( CartonInterface $carton ) {
 		foreach( $carton->columnas() as $columna ) {
@@ -60,7 +60,7 @@ class VerificacionesAvanzadasCartonTest extends TestCase {
   /**
    * Verifica que solo hay exactamente tres columnas que tienen solo una celda
    * ocupada.
-   * @dataProvider cartones
+   * @dataProvider cartonProvider
    */
   public function testTresCeldasIndividuales( CartonInterface $carton ) {
 	$columnasConUnaCeldaOcupada = 0;
@@ -74,7 +74,7 @@ class VerificacionesAvanzadasCartonTest extends TestCase {
   /**
    * Verifica que los números de las columnas izquierdas son menores que los de
    * las columnas a la derecha.
-   * @dataProvider cartones
+   * @dataProvider cartonProvider
    */
   public function testNumerosIncrementales( CartonInterface $carton ) {
 	$ordenado = function( $array ) {
@@ -93,7 +93,7 @@ class VerificacionesAvanzadasCartonTest extends TestCase {
 
   /**
    * Verifica que en una fila no existan más de dos celdas vacias consecutivas.
-   * @dataProvider cartones
+   * @dataProvider cartonProvider
    */
   public function testFilasConVaciosUniformes( CartonInterface $carton ) {
 	$numMaxDeCeldasVaciasConsecutivas = function( $array ) {
