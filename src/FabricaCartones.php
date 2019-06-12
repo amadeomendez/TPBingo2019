@@ -75,8 +75,8 @@ class FabricaCartones {
   protected function validarTresCeldasIndividuales($carton) {
     $cantidadConUnaSolaOcupada = 0;
     foreach ($carton as $columna) {
-    	if( count( array_filter($columna, function($x){ return $x != 0; }) ) == 1) {
-	$columnasConUnaCeldaOcupada += 1;
+    	if( count( array_filter($columna)) == 1) {
+	$columnasConUnaCeldaOcupada++;
 	}
     return ($cantidadConUnaSolaOcupada == 3);
   }
