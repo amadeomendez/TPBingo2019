@@ -13,6 +13,15 @@ class FabricaCartones {
     return $carton;
   }
 
+  public function afilar($columnas) {
+  foreach ($columnas as $indice_columna => $fila) {
+        foreach ($fila as $indice_fila => $numero){
+          $filas[$indice_fila][$indice_columna] = $numero;
+        }
+  }
+	return $filas;	  
+  }
+	
   protected function cartonEsValido($carton) {
     if ($this->validarUnoANoventa($carton) &&
       $this->validarCincoNumerosPorFila($carton) &&
@@ -39,11 +48,7 @@ class FabricaCartones {
   }
 
  protected function validarCincoNumerosPorFila($carton) {
-    foreach ($carton as $indice_columna => $fila) {
-      foreach ($fila as $indice_fila => $celda) {
-        $filas[$indice_fila][$indice_columna] = $celda;
-      }
-    }
+    $filas = $this->afilar(carton);
     foreach ($filas as $fila) {
       if(count(array_filter($fila)) != 5)
         return false;
