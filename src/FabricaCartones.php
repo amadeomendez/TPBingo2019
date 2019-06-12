@@ -113,7 +113,7 @@ protected function validarNumerosIncrementales($carton) {
       $carton = $this->formatoAFilas($carton);
       
       foreach ( $carton as $fila ) {
-      $celdasOcupadas = array_values( array_filter($fila) ) );
+      $celdasOcupadas = array_values( array_filter($fila) );
           if( !$ordenado($celdasOcupadas) ){
               return false;
           }
