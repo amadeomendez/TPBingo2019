@@ -81,25 +81,6 @@ class FabricaCartones {
     }
     return ($validas == 3);
   }
-  
-/** 
-  protected function validarNumerosIncrementales($carton) {
-  $columnas = $carton;
-    
-    $mayores = [];
-    $menores = [];
-    foreach ($columnas as $columna) {
-      $celdasDeLaColumna = array_filter($columna);
-      $mayores[] = max($celdasDeLaColumna);
-      $menores[] = min($celdasDeLaColumna);
-    }
-    for ($i = 1; $i < count($columnas); ++$i) {
-      if($menores[$i] <= $mayores[$i - 1])
-        return false;
-    }
-    return true;   	
-  }
-**/
 	
 protected function validarNumerosIncrementales($carton) {
     
@@ -123,17 +104,36 @@ protected function validarNumerosIncrementales($carton) {
     }
 	  
 	
-  protected function validarFilasConVaciosUniformes($carton) {
-    $filas = $this->formatoAFilas($carton);
-    foreach ($filas as $fila) {
-      for ($i = 2; $i < count($fila); ++$i) {
-        if($fila[$i - 2] == 0 && $fila[$i - 1] == 0 && $fila[$i] == 0)
-          return false;
-      }
-    }
-    return true;
-  }  
+public function testFilasConVaciosUniformes( CartonInterface $carton ) {
+	$numMaxDeCeldasVaciasConsecutivas = function( $array ) {
+		$len = count( $array );
+        $cant = 0; 
+        $res = 0;
+		foreach( $array as $num ) {
+			if( $num != 0 ){ 
+                $cant = 0;
+            }
+			else{           
+                $cant++  ; $res = max($res, $cant); 
+            }
+        } 
+        return $res;
+    };
+    
+    $carton = $this->formatoAFilas($carton);
 
+	foreach ( $carton as $fila ) {
+		$this->assertLessThanOrEqual(
+			2, $numMaxDeCeldasVaciasConsecutivas( $fila )
+        );
+        if( 2 < $numMaxDeCeldasVaciasConsecutivas($fila) ){
+            return false; 
+        } else{
+            return true;
+        }
+	}
+  }
+	
   public function intentoCarton() {
     $contador = 0;
 
