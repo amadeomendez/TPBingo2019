@@ -57,7 +57,8 @@ class VerificacionesBasicasCartonTest extends TestCase {
   public function cartones () {
 	return[
 	  [new CartonEjemplo],
-	  [new CartonJs]
+	  [new CartonJs],
+	  [new Carton((new FabricaCartones)->generarCarton())]
 	];
   }
 
