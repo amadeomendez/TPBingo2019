@@ -27,7 +27,7 @@ class FabricaCartones {
     return FALSE;
   }
 
-  protected function testUnoANoventa($carton) {
+  protected function validarUnoANoventa($carton) {
     foreach ( $carton->filas() as $fila ) {
       foreach ( $fila as $num ) {
         if( $num != 0 ) {
@@ -37,7 +37,7 @@ class FabricaCartones {
     }
   }
 
-  protected function testCincoNumerosPorFila($carton) {
+  protected function validarCincoNumerosPorFila($carton) {
     foreach ( $carton->filas() as $fila ) {
 			$this->assertEquals(
 				5, count(array_filter( $fila, function($x){return $x != 0;} ))
@@ -45,7 +45,7 @@ class FabricaCartones {
 		}
   }
 
-  protected function testColumnaNoVacia($carton) {
+  protected function validarColumnaNoVacia($carton) {
     foreach( $carton->columnas() as $columna ) {
 			$this->assertGreaterThan(
 				0, count(array_filter($columna, function($x){return $x != 0;}))
@@ -53,7 +53,7 @@ class FabricaCartones {
 		}
   }
 
-  protected function testColumnaCompleta($carton) {
+  protected function validarColumnaCompleta($carton) {
     foreach( $carton->columnas() as $columna ) {
 			$this->assertNotEquals(
 				3, count(array_filter($columna, function($x){return $x != 0;}))
@@ -61,7 +61,7 @@ class FabricaCartones {
 		}
   }
 
-  protected function testTresCeldasIndividuales($carton) {
+  protected function validarTresCeldasIndividuales($carton) {
     $columnasConUnaCeldaOcupada = 0;
 		foreach( $carton->columnas() as $columna ) {
 			if( count(array_filter($columna, function($x){return $x != 0;}))
@@ -70,7 +70,7 @@ class FabricaCartones {
 		$this->assertEquals( 3, $columnasConUnaCeldaOcupada );
   }
 
-  protected function testNumerosIncrementales($carton) {
+  protected function validarNumerosIncrementales($carton) {
     $ordenado = function( $array ) {
       $len = count($array);
       for( $i = 0; $i < $len-1; $i++ ) {
@@ -85,7 +85,7 @@ class FabricaCartones {
     }
   }
 
-  protected function testFilasConVaciosUniformes($carton) {
+  protected function validarFilasConVaciosUniformes($carton) {
     $numMaxDeCeldasVaciasConsecutivas = function( $array ) {
       $len = count( $array );
       $cant = 0; $res = 0;
