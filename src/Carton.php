@@ -6,8 +6,13 @@ class Carton implements CartonInterface {
   
   protected $numeros_carton = [];
 
-  public function __construct(array $numeros) {
-    $this->numeros_carton = $numeros;
+  public function __construct(array $columnas) {
+    foreach ($columnas as $i_columna => $fila){
+      foreach($fila as $i_fila => $numero) {
+        $carton_rearmado[$i_fila][$i_columna] = $numero;
+      }
+    }
+    $this->numeros_carton = $carton_rearmado;
   }
   
   /**
