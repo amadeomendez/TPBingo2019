@@ -81,7 +81,8 @@ class FabricaCartones {
     }
     return ($validas == 3);
   }
-	
+  
+/** 
   protected function validarNumerosIncrementales($carton) {
   $columnas = $carton;
     
@@ -96,28 +97,30 @@ class FabricaCartones {
       if($menores[$i] <= $mayores[$i - 1])
         return false;
     }
-    return true;
-   /** 
-    $ordenado = function( $array ) {
-	$len = count($array);
-	for( $i = 0; $i < $len-1; $i++ ) {
-		if( $array[$i] >= $array[$i+1] ) return false;
-	} return true;
-    };
-    $carton = $this->formatoAFilas($carton);
-    foreach ( $carton as $fila ) {
-	$celdasOcupadas = array_values(array_filter(
-		$fila, function($x){return $x != 0;}
-	));
-	$this->assertTrue( $ordenado($celdasOcupadas) );
-	    if( !$ordenado($celdasOcupadas) ){
-	    	return false;
-	    }
-     }
-     return true;
-     **/	
+    return true;   	
   }
-	  
+**/
+	
+protected function validarNumerosIncrementales($carton) {
+    
+      $ordenado = function( $array ) {
+      $len = count($array);
+      for( $i = 0; $i < $len-1; $i++ ) {
+          if( $array[$i] >= $array[$i+1] ) return false;
+      } return true;
+      };
+
+      $carton = $this->formatoAFilas($carton);
+      
+      foreach ( $carton as $fila ) {
+      $celdasOcupadas = array_values( array_filter($fila) ) );
+          if( !$ordenado($celdasOcupadas) ){
+              return false;
+          }
+       }
+       return true;
+
+    }
 	  
 	
   protected function validarFilasConVaciosUniformes($carton) {
