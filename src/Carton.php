@@ -8,7 +8,7 @@ class Carton implements CartonInterface {
 
   public function __construct(array $columnas) {
   foreach ($columnas as $indice_columna => $fila) {
-        foreach ($fila as $indice_fila => $numero{
+        foreach ($fila as $indice_fila => $numero){
          $filas[$indice_fila][$indice_columna] = $numero;
         }
   }
