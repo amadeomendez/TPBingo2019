@@ -9,18 +9,27 @@ class Carton implements CartonInterface {
   public function __construct(array $numeros) {
     $this->numeros_carton = $numeros;
   }
-
+  
+  /**
+   * {@inheritdoc}
+   */  
   public function filas() {
     $res = [];
     foreach ( $this->numeros_carton as $fila ) {
       array_push($res, $fila);
     } return $res;
   }
-
+  
+  /**
+   * {@inheritdoc}
+   */ 
     public function columnas() {
       return array_map(null, ...$this->numeros_carton);
     }
   
+  /**
+   * {@inheritdoc}
+   */ 
     public function numerosDelCarton() {
       $numeros = [];
       foreach ($this->filas() as $fila) {
@@ -33,6 +42,9 @@ class Carton implements CartonInterface {
       return $numeros;
     }
 
+  /**
+   * {@inheritdoc}
+   */ 
     public function tieneNumero(int $numero) {
       return in_array($numero, $this->numerosDelCarton());
     }
