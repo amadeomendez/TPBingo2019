@@ -104,7 +104,7 @@ protected function validarNumerosIncrementales($carton) {
     }
 	  
 	
-public function testFilasConVaciosUniformes( CartonInterface $carton ) {
+public function validarFilasConVaciosUniformes( $carton ) {
 	$numMaxDeCeldasVaciasConsecutivas = function( $array ) {
 		$len = count( $array );
         $cant = 0; 
@@ -123,9 +123,6 @@ public function testFilasConVaciosUniformes( CartonInterface $carton ) {
     $carton = $this->formatoAFilas($carton);
 
 	foreach ( $carton as $fila ) {
-		$this->assertLessThanOrEqual(
-			2, $numMaxDeCeldasVaciasConsecutivas( $fila )
-        );
         if( 2 < $numMaxDeCeldasVaciasConsecutivas($fila) ){
             return false; 
         } else{
