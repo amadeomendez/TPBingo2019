@@ -13,7 +13,7 @@ class FabricaCartones {
     return $carton;
   }
 
-  public function afilar($columnas) {
+  public function formatoAFilas($columnas) {
 	foreach ($columnas as $indice_columna => $fila) {
 		foreach ($fila as $indice_fila => $numero){
 			$filas[$indice_fila][$indice_columna] = $numero;
@@ -48,13 +48,14 @@ class FabricaCartones {
   }
 
  protected function validarCincoNumerosPorFila($carton) {
-    $filas = $this->afilar($carton);
+    $filas = $this->formatoAFilas($carton);
     foreach ($filas as $fila) {
       if(count(array_filter($fila)) != 5)
         return false;
     }
     return true;
   }
+	
   protected function validarColumnaNoVacia($carton) {
     foreach ($carton as $columna) {
       if(count(array_filter($columna)) < 1)
@@ -62,6 +63,7 @@ class FabricaCartones {
     }
     return true;
   }
+	
   protected function validarColumnaCompleta($carton) {
     foreach ($carton as $columna) {
       if(count(array_filter($columna)) == 3)
@@ -69,17 +71,18 @@ class FabricaCartones {
     }
     return true;
   }
+	
   protected function validarTresCeldasIndividuales($carton) {
     $cantidadConUnaSolaOcupada = 0;
     foreach ($carton as $columna) {
-      if (count(array_filter($columna)) == 1) {
-        $cantidadConUnaSolaOcupada++;
-      }
-    }
+    	if( count( array_filter($columna, function($x){ return $x != 0; }) ) == 1) {
+	$columnasConUnaCeldaOcupada += 1;
+	}
     return ($cantidadConUnaSolaOcupada == 3);
   }
+	
   protected function validarNumerosIncrementales($carton) {
-    $columnas = $carton;
+   /** $columnas = $carton;
     
     $mayores = [];
     $menores = [];
@@ -93,13 +96,30 @@ class FabricaCartones {
         return false;
     }
     return true;
+  **/	
+    $ordenado = function( $array ) {
+	$len = count($array);
+	for( $i = 0; $i < $len-1; $i++ ) {
+		if( $array[$i] >= $array[$i+1] ) return false;
+	} return true;
+    };
+    $carton = $this->formatoAFilas($carton);
+    foreach ( $carton as $fila ) {
+	$celdasOcupadas = array_values(array_filter(
+		$fila, function($x){return $x != 0;}
+	));
+	$this->assertTrue( $ordenado($celdasOcupadas) );
+	    if( !$ordenado($celdasOcupadas) ){
+	    	return false;
+	    }
+     }
+     return true;
   }
+	  
+	  
+	
   protected function validarFilasConVaciosUniformes($carton) {
-    foreach ($carton as $indice_columna => $fila) {
-      foreach ($fila as $indice_fila => $celda) {
-        $filas[$indice_fila][$indice_columna] = $celda;
-      }
-    }
+    $filas = $this->formatoAFilas($carton);
     foreach ($filas as $fila) {
       for ($i = 2; $i < count($fila); ++$i) {
         if($fila[$i - 2] == 0 && $fila[$i - 1] == 0 && $fila[$i] == 0)
