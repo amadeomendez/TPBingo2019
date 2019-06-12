@@ -14,10 +14,7 @@ class Carton implements CartonInterface {
    * {@inheritdoc}
    */  
   public function filas() {
-    $res = [];
-    foreach ( $this->numeros_carton as $fila ) {
-      array_push($res, $fila);
-    } return $res;
+    return $this->numeros_carton;
   }
   
   /**
